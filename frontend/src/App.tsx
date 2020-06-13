@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useCallback, useState } from "react";
+import api from "./services";
+
+interface IUser {
+  name: string;
+  email: string;
+}
 
 function App() {
+  const [users, setUsers] = useState<IUser[]>([]);
+
+  const getUsers = useCallback(async () => {
+    try {
+      const response = await api.get<IUser[]>("/users");
+
+      const { data } = response;
+
+      setUsers(data);
+    } catch (err) {
+      console.log("error", err);
+    }
+  }, []);
+
+  useEffect(() => {
+    getUsers();
+  }, [getUsers]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {users.map((user) => (
+        <p key={new Date().getTime()}>{user.name} </p>
+      ))}
     </div>
   );
 }
