@@ -20,11 +20,6 @@ interface IMailService {
   //apparently use void when a function doesn't return anything
 }
 
-/**
- * DTO
- * Data Transfer Object()
- */
-
 class EmailService implements IMailService {
   sendMail({ to, message }: ISendMailDTO) {
     console.log(`Email sent to ${to.name}: ${message.subject}`);
@@ -32,3 +27,10 @@ class EmailService implements IMailService {
 }
 
 export default EmailService;
+
+/**
+ * DTO
+ * Data Transfer Object() **
+ */
+
+// SOLID - **
