@@ -10,8 +10,18 @@ interface IMailMessage {
   //?: defines a field no required
 }
 
+interface ISendMailDTO {
+  to: IMailTo;
+  message: IMailMessage;
+}
+
+/**
+ * DTO
+ * Data Transfer Object()
+ */
+
 class EmailService {
-  sendMail(to: IMailTo, message: IMailMessage) {
+  sendMail({ to, message }: ISendMailDTO) {
     console.log(`Email sent to ${to.name}: ${message.subject}`);
   }
 }
